@@ -14,5 +14,6 @@ metadata:
     heritage: "{{ .Release.Service }}"
 type: Opaque
 data:
+  ca.crt: {{ b64enc $ca.Cert }}
   tls.crt: {{ b64enc $cert.Cert }}
   tls.key: {{ b64enc $cert.Key }}

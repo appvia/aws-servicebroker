@@ -608,9 +608,9 @@ Mappings:
     9.6.3:
       Family: postgres9.6
       MajorVersion: '9.6'
-    12.4:
+    '12.4':
       Family: postgres12
-      MajorVersion: '12.4'
+      MajorVersion: '12'
 Conditions:
   3az:
     !Or

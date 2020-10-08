@@ -1,3 +1,5 @@
+{{- if not (lookup "v1" "Secret" .Release.Namespace (printf "%s%s" (include "fullname" .) "-cert")) }}
+
 {{- $ca := genCA "svc-cat-ca" 3650 }}
 {{- $cn := printf "%s-%s" .Release.Name .Chart.Name }}
 {{- $altName1 := printf "%s-%s.%s" .Release.Name .Chart.Name .Release.Namespace }}
@@ -7,13 +9,18 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: {{ template "fullname" . }}-cert
+  namespace: {{ .Release.Namespace }}
   labels:
     app: {{ template "fullname" . }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     release: "{{ .Release.Name }}"
     heritage: "{{ .Release.Service }}"
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
 type: Opaque
 data:
   ca.crt: {{ b64enc $ca.Cert }}
   tls.crt: {{ b64enc $cert.Cert }}
   tls.key: {{ b64enc $cert.Key }}
+
+{{- end }}

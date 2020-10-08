@@ -260,7 +260,7 @@ Parameters:
   EngineVersion:
     Description: The version number of the database engine to use.
     Type: String
-    Default: 9.6.3
+    Default: 12.4
     AllowedValues:
     - 9.3.12
     - 9.3.14
@@ -301,6 +301,7 @@ Parameters:
     - 11.4
     - 11.5
     - 11.6
+    - 12.4
   MasterUserPassword:
     Description: Master user database Password, if left at default a 32 character
       password will be generated
@@ -607,6 +608,9 @@ Mappings:
     9.6.3:
       Family: postgres9.6
       MajorVersion: '9.6'
+    12.4:
+      Family: postgres12
+      MajorVersion: '12.4'
 Conditions:
   3az:
     !Or
